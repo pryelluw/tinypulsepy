@@ -1,3 +1,6 @@
+# note: this can be reduced to a bunch of constants strings with the
+# query strings and one function to format the key values.
+
 # pagination reference: https://api-docs.tinypulse.com/doc/develop_paging
 
 def page(key, value):
