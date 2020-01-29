@@ -28,7 +28,7 @@ def fields(key, value):
         Single: value1
         Multiple: value1,value2
     '''
-    return 'fields[key]={value}'.format(value=value)
+    return 'fields[{key}]={value}'.format(key=key, value=value)
 
 
 # filter reference: https://api-docs.tinypulse.com/doc/develop_filter
