@@ -5,22 +5,27 @@ class TinypulseAPIClient(object):
     
     BASE_URL = 'https://api.tinypulse.com/pulse'
 
-    def __init__(self, API_KEY, ACCESS_TOKEN=None):
-        self._api_key = API_KEY
-        self._access_token = ACCESS_TOKEN
+    def __init__(self, api_key, access_token=None):
+        self._api_key = api_key
+        self._access_token = access_token
+
+    def add_url_parameter(self, url, param):
+        if '?' not in url:
+            return '{0}?{1}'.format(url, param)
+        return '{0}&{1}'.format(url, param)
+
+    def build_resource(self, template, **kwargs):
+        return template.format(kwargs)
 
     def get(self, resource):
-        # add tokens here
-        # build url here
-        url = ''
-        try:
-            r = requests.get(url)
-            response = r.json()
-            
-            # return whatever
-            
+        headers = {'AccessToken': self._api_key}
+        if self._access_token:
+            headers['Authorization:': 'Bearer {}'.format(self._access_token)]
         
-        except requests.exceptions.HTTPError:
-            return {}
+        url = '{}{}'.format(self.BASE_URL, resource)
+        r = requests.get(url, headers=headers)
+        r.raise_for_status()
         
-        
+        if r.status_code == requests.codes.ok:
+                return r.json()
+        return {}
