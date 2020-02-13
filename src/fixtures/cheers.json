@@ -1,0 +1,67 @@
+{
+	"meta": {
+		"per_page": 1,
+		"current_page": 1,
+		"total_pages": 1500
+	},
+	"data": [
+		{
+			"relationships": {
+				"receiver_segment": {
+					"data": {
+						"type": "segment",
+						"id": "00000"
+					},
+					"links": {
+						"related": "https://api.tinypulse.com/pulse/v1/segments/00000"
+					}
+				},
+				"comments": {
+					"links": {
+						"related": "https://api.tinypulse.com/pulse/v1/cheers/0000000/comments"
+					}
+				},
+				"sender_segment": {
+					"data": {
+						"type": "segment",
+						"id": "00000"
+					},
+					"links": {
+						"related": "https://api.tinypulse.com/pulse/v1/segments/00000"
+					}
+				}
+			},
+			"attributes": {
+				"receiver_email": "someone@example.com",
+				"receiver_segment": "Support",
+				"praise": "test",
+				"sender_name": "James McGill",
+				"receiver_name": "Tom Hanks",
+				"created_at": "2020-02-09T21:27:24+00:00",
+				"value_tags": [
+					{
+						"tag": "test",
+						"value": "test",
+						"emoji": ":busts_in_silhouette:"
+					},
+					{
+						"tag": "test",
+						"value": "test",
+						"emoji": ":arrows_clockwise:"
+					}
+				],
+				"sender_email": "someoneelse@example.com",
+				"sender_segment": "Support"
+			},
+			"type": "cheers",
+			"id": "0000000"
+		}
+	],
+	"links": {
+		"self": "https://api.tinypulse.com/pulse/v1/cheers?page[number]=1&page[size]=1",
+		"prev": null,
+		"last": "https://api.tinypulse.com/pulse/v1/cheers?page[number]=1500&page[size]=1",
+		"first": "https://api.tinypulse.com/pulse/v1/cheers?page[number]=1&page[size]=1",
+		"next": "https://api.tinypulse.com/pulse/v1/cheers?page[number]=2&page[size]=1"
+	}
+}
