@@ -1,3 +1,15 @@
+def add_resource_parameter(resource, parameter):
+    '''
+    Adds url parameter to a resource
+    :param resource: str
+    :param parameter: str - already url encoded with
+                            any of the utilities below
+    '''
+    if '?' not in resource:
+        return '{0}?{1}'.format(resource, parameter)
+    return '{0}&{1}'.format(resource, parameter)
+
+
 # pagination reference: https://api-docs.tinypulse.com/doc/develop_paging
 
 def page(key, value):

@@ -9,7 +9,8 @@ except:
 import requests
 from client import TinypulseAPIClient
 import constants
-from shortcuts import get_cheers
+import shortcuts
+
 
 
 def get_fixture(fixture):
@@ -18,30 +19,26 @@ def get_fixture(fixture):
             return json.loads(f.read())
     return {}
 
+
+class MockResponse:
+    def __init__(self, status_code=200, json_data={}):
+        self.status_code = status_code
+        self.json_data = json_data
+
+    def json(self):
+        return self.json_data
+
+    def raise_for_status(self):
+        pass
+
+
 def mock_get(*args, **kwargs):
-
-    class MockResponse:
-        def __init__(self, status_code, json_data):
-            self.status_code = status_code
-            self.json_data = json_data
-
-        def json(self):
-            return self.json_data
-
-        def raise_for_status(self):
-            pass
-
-    return MockResponse(200, {})
+    return MockResponse()
 
 
-class TestShortcuts(unittest.TestCase):
-    def setUp(self):
-        self.api_key = '12345'
-
-    @mock.patch('requests.get', side_effect=mock_get)
-    def test_get_cheers_response_ok(self, mocko):
-
-        self.assertEqual(get_cheers(self.api_key), {})
+def mock_cheers(*args, **kwargs):
+    m = MockResponse(200, get_fixture('cheers'))
+    return m
 
 
 class TestAPIEndpoints(unittest.TestCase):
@@ -57,7 +54,17 @@ class TestAPIEndpoints(unittest.TestCase):
             '{}{}'.format(self.client.BASE_URL,constants.CHEERS),
             headers={'AccessToken': self.client._api_key}
         )
+
+class TestShorcuts(unittest.TestCase):
+    def setUp(self):
+        self.api_key = '12345'
     
-        
+    @mock.patch('requests.get', side_effect=mock_cheers)
+    def test_get_cheers_between_date(self, mocko):
+        cheers = shortcuts.get_cheers_between_date(self.api_key)
+        self.assertTrue(len(cheers) == 1)
+        self.assertTrue(cheers[0].keys() == ['sender', 'praise', 'receiver'])
+
+
 if __name__ == '__main__':
     unittest.main()
