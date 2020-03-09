@@ -18,17 +18,6 @@ def get_cheers_between_date(api_key, start_date='19700101', end_date='19700101',
     size = utils.page('size', page_size)
     resource = utils.add_resource_parameter(resource, size)
 
-    data = client.get(resource).get('data', [])
-
-    def cheer_data(attributes):
-        cheers = []
-        for attr in attributes:
-            cheer = {}
-            cheer['sender'] = attr.get('sender_name', 'unknown')
-            cheer['receiver'] = attr.get('receiver_name', 'unknown')
-            cheer['praise'] = attr.get('praise', '')
-            cheers.append(cheer)
-        return cheers
-
-    attributes = [attr.get("attributes") for attr in data]
-    return cheer_data(attributes)
+    cheer_data = client.get(resource).get('data', [])
+    
+    return utils.process_cheer_data(cheer_data)

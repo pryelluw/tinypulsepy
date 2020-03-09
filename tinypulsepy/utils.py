@@ -135,3 +135,16 @@ def filter_datetime_between_alt(key, datetimes_str):
     Example -> '20180101 00:00:00,20180201 00:00:00'
     '''
     return 'filter[{key}][between]={value}'.format(key=key, value=datetimes_str)
+
+
+def process_cheer_data(cheer_data=[]):
+    cheers = []
+    for cheer in cheer_data:
+        current_cheer = {}
+        current_cheer['sender'] = cheer.get('attributes').get('sender_name', 'unknown')
+        current_cheer['receiver'] = cheer.get('attributes').get('receiver_name', 'unknown')
+        current_cheer['praise'] = cheer.get('attributes').get('praise', '')
+        current_cheer['created_at'] = cheer.get('attributes').get('created_at')
+        current_cheer['id'] = cheer.get('id')
+        cheers.append(current_cheer)
+    return cheers

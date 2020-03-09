@@ -10,7 +10,7 @@ import requests
 from client import TinypulseAPIClient
 import constants
 import shortcuts
-
+import utils
 
 
 def get_fixture(fixture):
@@ -63,7 +63,17 @@ class TestShorcuts(unittest.TestCase):
     def test_get_cheers_between_date(self, mocko):
         cheers = shortcuts.get_cheers_between_date(self.api_key)
         self.assertTrue(len(cheers) == 1)
-        self.assertTrue(cheers[0].keys() == ['sender', 'praise', 'receiver'])
+        print cheers
+        
+
+class TestProcessCheerData(unittest.TestCase):
+    def setUp(self):
+        self.fixture = get_fixture('cheers')
+
+    def test_process_cheer_data(self):
+        cheer_data = utils.process_cheer_data(self.fixture.get('data'))
+        self.assertTrue(self.fixture.get('data')[0].get('attributes').get('sender_name') == cheer_data[0]['sender'])
+        self.assertTrue(self.fixture.get('data')[0].get('id') == cheer_data[0]['id'])
 
 
 if __name__ == '__main__':
