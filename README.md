@@ -28,4 +28,5 @@ reference: https://api-docs.tinypulse.com/doc/develop_get_auth_tokens
 Source these from your administration dashboard.
 
 `API_KEY = ''` **Required**
+
 `ACCESS_TOKEN = ''` Optional
