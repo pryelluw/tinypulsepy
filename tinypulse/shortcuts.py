@@ -1,6 +1,6 @@
-from v1.constants import CHEERS
-from v1.utils import add_resource_parameter, filter_date_between, page, process_cheer_data
-from v1.client import TinypulseAPIClient
+from tinypulse.constants import CHEERS
+from tinypulse.utils import add_resource_parameter, filter_date_between, page, process_cheer_data
+from tinypulse.client import TinypulseAPIClient
 
 
 def get_cheers_between_date(api_key, start_date='19700101', end_date='19700101', page_size=10000, access_token=None):

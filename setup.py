@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='tinypulsepy',
-      version='0.3.0',
+      version='0.5.0',
       description='API client for TinyPulse API V1.',
       url='https://github.com/pabloriveracelerity/tinypulsepy/',
       author='Pablo Rivera',

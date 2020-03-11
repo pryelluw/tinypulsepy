@@ -7,10 +7,10 @@ except:
     import unittest.mock as mock
 
 import requests
-from v1.client import TinypulseAPIClient
-from v1.constants import CHEERS
-from v1.shortcuts import get_cheers_between_date
-from v1.utils import add_resource_parameter, filter_date_between, page, process_cheer_data
+from tinypulse.client import TinypulseAPIClient
+from tinypulse.constants import CHEERS
+from tinypulse.shortcuts import get_cheers_between_date
+from tinypulse.utils import add_resource_parameter, filter_date_between, page, process_cheer_data
 
 
 def get_fixture(fixture):
