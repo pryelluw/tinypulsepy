@@ -7,15 +7,15 @@ except:
     import unittest.mock as mock
 
 import requests
-from client import TinypulseAPIClient
-from constants import CHEERS
-from shortcuts import get_cheers_between_date
-from utils import add_resource_parameter, filter_date_between, page, process_cheer_data
+from v1.client import TinypulseAPIClient
+from v1.constants import CHEERS
+from v1.shortcuts import get_cheers_between_date
+from v1.utils import add_resource_parameter, filter_date_between, page, process_cheer_data
 
 
 def get_fixture(fixture):
     if fixture == 'cheers':
-        with open('./fixtures/cheers.json', 'r') as f:
+        with open('./tests/fixtures/cheers.json', 'r') as f:
             return json.loads(f.read())
     return {}
 
