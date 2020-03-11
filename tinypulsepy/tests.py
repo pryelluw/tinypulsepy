@@ -8,9 +8,9 @@ except:
 
 import requests
 from client import TinypulseAPIClient
-import constants
-import shortcuts
-import utils
+from constants import CHEERS
+from shortcuts import get_cheers_between_date
+from utils import add_resource_parameter, filter_date_between, page, process_cheer_data
 
 
 def get_fixture(fixture):
@@ -49,9 +49,9 @@ class TestAPIEndpoints(unittest.TestCase):
 
     @mock.patch('requests.get', side_effect=mock_get)
     def test_get_cheers_calls_api_all_cheers_endpoint(self, mocko):
-        self.client.get(constants.CHEERS)
+        self.client.get(CHEERS)
         mocko.assert_called_with(
-            '{}{}'.format(self.client.BASE_URL,constants.CHEERS),
+            '{}{}'.format(self.client.BASE_URL, CHEERS),
             headers={'AccessToken': self.client._api_key}
         )
 
@@ -61,17 +61,16 @@ class TestShorcuts(unittest.TestCase):
     
     @mock.patch('requests.get', side_effect=mock_cheers)
     def test_get_cheers_between_date(self, mocko):
-        cheers = shortcuts.get_cheers_between_date(self.api_key)
+        cheers = get_cheers_between_date(self.api_key)
         self.assertTrue(len(cheers) == 1)
-        print cheers
-        
+
 
 class TestProcessCheerData(unittest.TestCase):
     def setUp(self):
         self.fixture = get_fixture('cheers')
 
     def test_process_cheer_data(self):
-        cheer_data = utils.process_cheer_data(self.fixture.get('data'))
+        cheer_data = process_cheer_data(self.fixture.get('data'))
         self.assertTrue(self.fixture.get('data')[0].get('attributes').get('sender_name') == cheer_data[0]['sender'])
         self.assertTrue(self.fixture.get('data')[0].get('id') == cheer_data[0]['id'])
 
